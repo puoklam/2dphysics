@@ -1,8 +1,9 @@
 package vector
 
 import (
-	"2dphysics/math/float"
 	"math"
+
+	"github.com/puoklam/2dphysics/math/float"
 )
 
 // error msg
