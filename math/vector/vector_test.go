@@ -1,24 +1,31 @@
 package vector
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/puoklam/2dphysics/math/float"
+)
 
 func TestVectorAngle(t *testing.T) {
 	tests := []struct {
 		in   [2][]float64
-		want float64
+		out  float64
+		want bool
 	}{
 		{
 			in:   [2][]float64{{1, 2}, {3, 4}},
-			want: 0.17985349979247856,
+			out:  0.17985349979247856,
+			want: true,
 		},
 		{
 			in:   [2][]float64{{5, 6, 7}, {8, 9, 10}},
-			want: 0.04477778793657983,
+			out:  0.04477778793657983,
+			want: true,
 		},
 	}
 	for i, tt := range tests {
 		v1, v2 := NewVector(tt.in[0]...), NewVector(tt.in[1]...)
-		got := Angle(v1, v2)
+		got := float.Equal(Angle(v1, v2), tt.out)
 		if got != tt.want {
 			t.Errorf("%d. got %v; want %v", i, got, tt.want)
 		}
