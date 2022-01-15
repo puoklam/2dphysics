@@ -23,9 +23,9 @@ type Vector struct {
 }
 
 // method set
-func (v *Vector) AddDims(vals ...float64) {
-	v.Dims = append(v.Dims, vals...)
-}
+// func (v *Vector) AddDims(vals ...float64) {
+// 	v.Dims = append(v.Dims, vals...)
+// }
 
 func (v *Vector) Normalize() {
 	mag := Magnitude(v)
@@ -95,6 +95,17 @@ func Sub(v1, v2 *Vector) *Vector {
 	dims := make([]float64, 0, len(v1.Dims))
 	for i := 0; i < cap(dims); i++ {
 		dims = append(dims, v1.Dims[i]-v2.Dims[i])
+	}
+	return &Vector{dims}
+}
+
+func Mul(v *Vector, f float64) *Vector {
+	if v == nil {
+		panic(NilVector)
+	}
+	dims := make([]float64, 0, len(v.Dims))
+	for i := 0; i < cap(dims); i++ {
+		dims = append(dims, v.Dims[i]*f)
 	}
 	return &Vector{dims}
 }
