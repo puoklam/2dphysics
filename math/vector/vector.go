@@ -8,9 +8,9 @@ import (
 
 // error msg
 const (
-	NilVector         = "nil vector received"
-	DimsNotMatch      = "dimensions not match"
-	InvalidDimensions = "invalid dimensions"
+	NilVector    = "nil vector received"
+	DimsNotMatch = "dimensions not match"
+	InvalidDims  = "invalid dimensions"
 )
 
 // math const
@@ -122,7 +122,7 @@ func Dot(v1, v2 *Vector) float64 {
 func Cross(v1, v2 *Vector) *Vector {
 	validateBinOp(v1, v2)
 	if len(v1.Dims) > 3 || len(v2.Dims) > 3 {
-		panic(InvalidDimensions)
+		panic(InvalidDims)
 	}
 	dims := make([]float64, 3)
 	switch len(v1.Dims) {
