@@ -5,6 +5,6 @@ import (
 )
 
 type Generator interface {
-	update(body shape.Body, dt float64)
-	zero()
+	Update(body *shape.Body, dt float64)
+	Zero()
 }

@@ -34,7 +34,7 @@ func TestPolygonArea(t *testing.T) {
 	for i, tt := range tests {
 		var s Shape
 		if len(tt.in) == 2 {
-			s = NewRect(tt.in[0], tt.in[1])
+			s = NewRect(tt.in[0], tt.in[1], 10)
 		} else if len(tt.in) == 3 {
 			// s = NewTri(tt.in[0], tt.in[1], tt.in[2])
 		}
@@ -58,7 +58,7 @@ func TestCircleArea(t *testing.T) {
 		},
 	}
 	for i, tt := range tests {
-		c := NewCircle(vector.NewVector(0, 0), tt.in)
+		c := NewCircle(vector.NewVector(0, 0), tt.in, 10)
 		got := float.Equal(c.Area(), tt.out)
 		if got != tt.want {
 			t.Errorf("%d. got %v; want %v", i, got, tt.want)

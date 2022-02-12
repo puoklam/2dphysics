@@ -12,12 +12,12 @@ func NewRegistry() *Registry {
 	return &Registry{make([]*Registration, 0)}
 }
 
-func (r *Registry) Add(body shape.Body, generator Generator) {
+func (r *Registry) Add(body *shape.Body, generator Generator) {
 	registration := NewRegistration(body, generator)
 	r.registry = append(r.registry, registration)
 }
 
-func (r *Registry) Remove(body shape.Body, generator Generator) {
+func (r *Registry) Remove(body *shape.Body, generator Generator) {
 	registration := NewRegistration(body, generator)
 	r.registry = append(r.registry, registration)
 
@@ -42,12 +42,12 @@ func (r *Registry) Clear() {
 
 func (r *Registry) Update(dt float64) {
 	for _, rg := range r.registry {
-		rg.generator.update(rg.body, dt)
+		rg.generator.Update(rg.body, dt)
 	}
 }
 
 func (r *Registry) Zero(dt float64) {
 	for _, rg := range r.registry {
-		rg.generator.zero()
+		rg.generator.Zero()
 	}
 }

@@ -29,6 +29,29 @@ func (v *Vector2D) ReverseDir() {
 	v.Y *= -1
 }
 
+func (v *Vector2D) Add(v2 *Vector2D) {
+	validateBinOp(v, v2)
+	v.X += v2.X
+	v.Y += v2.Y
+}
+
+func (v *Vector2D) Sub(v2 *Vector2D) {
+	validateBinOp(v, v2)
+	v.X -= v2.X
+	v.Y -= v2.Y
+}
+
+func (v *Vector2D) Mul(f float64) {
+	validateUnOp(v)
+	v.X *= f
+	v.Y *= f
+}
+
+func (v *Vector2D) Zero() {
+	validateUnOp(v)
+	v.X, v.Y = 0, 0
+}
+
 func (v *Vector2D) Rotate(o *Vector2D, t float64) {
 	if t != 0 {
 		x, y := v.X-o.X, v.Y-o.Y

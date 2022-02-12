@@ -5,11 +5,11 @@ import (
 )
 
 type Registration struct {
-	body      shape.Body
+	body      *shape.Body
 	generator Generator
 }
 
-func NewRegistration(body shape.Body, generator Generator) *Registration {
+func NewRegistration(body *shape.Body, generator Generator) *Registration {
 	return &Registration{
 		body,
 		generator,

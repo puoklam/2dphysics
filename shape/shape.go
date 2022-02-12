@@ -14,16 +14,11 @@ type Shape interface {
 	Area() float64
 }
 
-type Body struct {
-	Center   *vector.Vector2D
-	Rotation float64
-}
-
 /**
  * Circle struct
  */
 type Circle struct {
-	Body
+	*Body
 	Radius float64
 }
 
@@ -31,11 +26,12 @@ func (c Circle) Area() float64 {
 	return math.Pi * c.Radius * c.Radius
 }
 
-func NewCircle(c *vector.Vector2D, r float64) *Circle {
+func NewCircle(c *vector.Vector2D, r float64, m float64) *Circle {
 	if r < 0 {
 		panic(ErrInvalidRadius)
 	}
-	return &Circle{Body{vector.Copy(c), 0}, r}
+	body := NewBody(vector.Copy(c), 0, m)
+	return &Circle{body, r}
 }
 
 /**
@@ -66,7 +62,7 @@ func NewCircle(c *vector.Vector2D, r float64) *Circle {
  * Rectangle struct
  */
 type Rect struct {
-	Body
+	*Body
 	halfDiag *vector.Vector2D
 }
 
@@ -82,12 +78,13 @@ func (r Rect) Max() *vector.Vector2D {
 	return vector.Add(r.Center, r.halfDiag)
 }
 
-func NewRect(min, max *vector.Vector2D) *Rect {
+func NewRect(min, max *vector.Vector2D, m float64) *Rect {
 	if min == nil || max == nil {
 		panic(vector.ErrNilVector)
 	}
 	diag := vector.Sub(max, min)
 	halfDiag := vector.Mul(diag, 0.5)
 	center := vector.Add(min, halfDiag)
-	return &Rect{Body{center, 0}, halfDiag}
+	body := NewBody(center, 0, m)
+	return &Rect{body, halfDiag}
 }
