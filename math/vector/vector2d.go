@@ -3,7 +3,7 @@ package vector
 import (
 	"math"
 
-	"github.com/puoklam/2dphysics/math/float"
+	"github.com/puoklam/physics2d/math/float"
 )
 
 const (

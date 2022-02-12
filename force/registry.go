@@ -1,7 +1,7 @@
 package force
 
 import (
-	"github.com/puoklam/2dphysics/shape"
+	"github.com/puoklam/physics2d/shape"
 )
 
 type Registry struct {

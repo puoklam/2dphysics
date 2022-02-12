@@ -1,6 +1,6 @@
 package shape
 
-import "github.com/puoklam/2dphysics/math/vector"
+import "github.com/puoklam/physics2d/math/vector"
 
 type Line struct {
 	Start, End *vector.Vector2D

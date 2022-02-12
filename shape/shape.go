@@ -3,7 +3,7 @@ package shape
 import (
 	"math"
 
-	"github.com/puoklam/2dphysics/math/vector"
+	"github.com/puoklam/physics2d/math/vector"
 )
 
 const (

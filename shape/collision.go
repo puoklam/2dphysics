@@ -1,8 +1,8 @@
 package shape
 
 import (
-	"github.com/puoklam/2dphysics/math/float"
-	"github.com/puoklam/2dphysics/math/vector"
+	"github.com/puoklam/physics2d/math/float"
+	"github.com/puoklam/physics2d/math/vector"
 )
 
 type Collider interface {

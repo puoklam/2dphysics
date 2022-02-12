@@ -3,8 +3,8 @@ package shape
 import (
 	"testing"
 
-	"github.com/puoklam/2dphysics/math/float"
-	"github.com/puoklam/2dphysics/math/vector"
+	"github.com/puoklam/physics2d/math/float"
+	"github.com/puoklam/physics2d/math/vector"
 )
 
 func TestPolygonArea(t *testing.T) {

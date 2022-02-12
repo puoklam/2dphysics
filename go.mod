@@ -1,3 +1,3 @@
-module github.com/puoklam/2dphysics
+module github.com/puoklam/physics2d
 
 go 1.16
