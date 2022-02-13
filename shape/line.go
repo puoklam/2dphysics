@@ -24,6 +24,5 @@ func (l Line) Slope() float64 {
 }
 
 func NewLine(s, e *vector.Vector2D) *Line {
-	s, e = vector.Copy(s), vector.Copy(e)
-	return &Line{s, e, [3]int{0, 0, 0}}
+	return &Line{vector.Copy(s), vector.Copy(e), [3]int{0, 0, 0}}
 }

@@ -46,7 +46,7 @@ func (b *Body) SetMass(m float64) {
 }
 
 func (b *Body) AddForce(f *vector.Vector2D) {
-	b.force.Add(f)
+	b.force.Add(vector.Copy(f))
 }
 
 func (b *Body) Update(dt float64) {
@@ -67,13 +67,9 @@ func (b *Body) ClearForce() {
 	b.force.Zero()
 }
 
-func (b *Body) Get() *vector.Vector2D {
-	return b.LinVelo
-}
-
 func NewBody(c *vector.Vector2D, r, m float64) *Body {
 	body := &Body{
-		c,
+		vector.Copy(c),
 		r,
 		vector.NewVector(0, 0),
 		0,
