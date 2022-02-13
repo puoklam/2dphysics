@@ -4,6 +4,13 @@ import (
 	"github.com/puoklam/physics2d/math/vector"
 )
 
+const (
+	InfMass = 0
+)
+
+type Collider interface {
+}
+
 type Body struct {
 	Center   *vector.Vector2D
 	Rotation float64
@@ -11,12 +18,21 @@ type Body struct {
 	mass     float64
 	massInv  float64
 
-	linVelo *vector.Vector2D
-	angVelo *vector.Vector2D
+	LinVelo *vector.Vector2D
+	AngVelo *vector.Vector2D
+
+	// TODO: extract collider out, now self referencing (circle.Body.Collider = circle)
+	Collider Collider
+	// coef. of restitution
+	Cor float64
 }
 
 func (b *Body) Mass() float64 {
 	return b.mass
+}
+
+func (b *Body) MassInv() float64 {
+	return b.massInv
 }
 
 func (b *Body) SetMass(m float64) {
@@ -39,10 +55,10 @@ func (b *Body) Update(dt float64) {
 	}
 	// update velocity
 	a := vector.Mul(b.force, b.massInv)
-	b.linVelo.Add(vector.Mul(a, dt))
+	b.LinVelo.Add(vector.Mul(a, dt))
 
 	// update position
-	b.Center.Add(vector.Mul(b.linVelo, dt))
+	b.Center.Add(vector.Mul(b.LinVelo, dt))
 
 	b.ClearForce()
 }
@@ -52,7 +68,7 @@ func (b *Body) ClearForce() {
 }
 
 func (b *Body) Get() *vector.Vector2D {
-	return b.linVelo
+	return b.LinVelo
 }
 
 func NewBody(c *vector.Vector2D, r, m float64) *Body {
@@ -64,6 +80,8 @@ func NewBody(c *vector.Vector2D, r, m float64) *Body {
 		0,
 		vector.NewVector(0, 0),
 		vector.NewVector(0, 0),
+		nil,
+		1,
 	}
 	body.SetMass(m)
 	return body

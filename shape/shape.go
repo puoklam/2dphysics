@@ -31,7 +31,9 @@ func NewCircle(c *vector.Vector2D, r float64, m float64) *Circle {
 		panic(ErrInvalidRadius)
 	}
 	body := NewBody(vector.Copy(c), 0, m)
-	return &Circle{body, r}
+	circle := &Circle{body, r}
+	circle.Body.Collider = circle
+	return circle
 }
 
 /**
@@ -86,5 +88,7 @@ func NewRect(min, max *vector.Vector2D, m float64) *Rect {
 	halfDiag := vector.Mul(diag, 0.5)
 	center := vector.Add(min, halfDiag)
 	body := NewBody(center, 0, m)
-	return &Rect{body, halfDiag}
+	rect := &Rect{body, halfDiag}
+	rect.Body.Collider = rect
+	return rect
 }

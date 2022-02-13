@@ -1,14 +1,12 @@
-package shape
+package collision
 
 import (
 	"github.com/puoklam/physics2d/math/float"
 	"github.com/puoklam/physics2d/math/vector"
+	"github.com/puoklam/physics2d/shape"
 )
 
-type Collider interface {
-}
-
-func IsPointOnLine(p *vector.Vector2D, l *Line) bool {
+func IsPointOnLine(p *vector.Vector2D, l *shape.Line) bool {
 	if l.Start.X == l.End.X {
 		// vertical line
 		return float.Equal(p.X, l.Start.X)
@@ -18,18 +16,18 @@ func IsPointOnLine(p *vector.Vector2D, l *Line) bool {
 	return float.Equal(p.Y, m*p.X+c)
 }
 
-func IsPointInCircle(p *vector.Vector2D, c *Circle) bool {
+func IsPointInCircle(p *vector.Vector2D, c *shape.Circle) bool {
 	// check radius (squared radius)
 	return float.Equal(vector.MagnitudeSquared(p), c.Radius*c.Radius)
 }
 
-func IsPointInRect(p *vector.Vector2D, r *Rect) bool {
+func IsPointInRect(p *vector.Vector2D, r *shape.Rect) bool {
 	// return p.Dims[0] >= r.Min().Dims[0] && p.Dims[0] <= r.Max().Dims[0] && p.Dims[1] >= r.Min().Dims[1] && p.Dims[1] <= r.Max().Dims[1]
 	rotated := vector.Rotate(p, r.Center, -r.Rotation)
 	return rotated.X >= r.Min().X && rotated.X <= r.Max().X && rotated.Y >= r.Min().Y && rotated.Y <= r.Max().Y
 }
 
-func IsLineInCircle(l *Line, c *Circle) bool {
+func IsLineInCircle(l *shape.Line, c *shape.Circle) bool {
 	if IsPointInCircle(l.Start, c) || IsPointInCircle(l.End, c) {
 		return true
 	}
@@ -37,14 +35,14 @@ func IsLineInCircle(l *Line, c *Circle) bool {
 	return IsPointInCircle(proj, c)
 }
 
-func IsLineInRect(l *Line, r *Rect) bool {
+func IsLineInRect(l *shape.Line, r *shape.Rect) bool {
 	if IsPointInRect(l.Start, r) || IsPointInRect(l.End, r) {
 		return true
 	}
 	// rorate line by -angle rad
 	rs := vector.Rotate(l.Start, r.Center, r.Rotation)
 	re := vector.Rotate(l.End, r.Center, r.Rotation)
-	rotated := NewLine(rs, re)
+	rotated := shape.NewLine(rs, re)
 
 	u := vector.Normalize(vector.Sub(rotated.End, rotated.Start))
 	if u.X != 0 {
