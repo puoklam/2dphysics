@@ -18,47 +18,54 @@ type Vector2D struct {
 	X, Y float64
 }
 
-func (v *Vector2D) Normalize() {
+func (v *Vector2D) Normalize() *Vector2D {
 	mag := Magnitude(v)
 	v.X /= mag
 	v.Y /= mag
+	return v
 }
 
-func (v *Vector2D) ReverseDir() {
+func (v *Vector2D) ReverseDir() *Vector2D {
 	v.X *= -1
 	v.Y *= -1
+	return v
 }
 
-func (v *Vector2D) Add(v2 *Vector2D) {
+func (v *Vector2D) Add(v2 *Vector2D) *Vector2D {
 	validateBinOp(v, v2)
 	v.X += v2.X
 	v.Y += v2.Y
+	return v
 }
 
-func (v *Vector2D) Sub(v2 *Vector2D) {
+func (v *Vector2D) Sub(v2 *Vector2D) *Vector2D {
 	validateBinOp(v, v2)
 	v.X -= v2.X
 	v.Y -= v2.Y
+	return v
 }
 
-func (v *Vector2D) Mul(f float64) {
+func (v *Vector2D) Mul(f float64) *Vector2D {
 	validateUnOp(v)
 	v.X *= f
 	v.Y *= f
+	return v
 }
 
-func (v *Vector2D) Zero() {
+func (v *Vector2D) Zero() *Vector2D {
 	validateUnOp(v)
 	v.X, v.Y = 0, 0
+	return v
 }
 
-func (v *Vector2D) Rotate(o *Vector2D, t float64) {
+func (v *Vector2D) Rotate(o *Vector2D, t float64) *Vector2D {
 	if t != 0 {
 		x, y := v.X-o.X, v.Y-o.Y
 		cos, sin := math.Cos(t), math.Sin(t)
 		x, y = x*cos-y*sin, x*sin+y*cos
 		v.X, v.Y = o.X+x, o.Y+y
 	}
+	return v
 }
 
 // validation
