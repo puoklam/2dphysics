@@ -94,9 +94,10 @@ func applyImpulse(b1, b2 *shape.Body, m *collision.Manifold) {
 	}
 
 	relVelo := vector.Sub(b2.LinVelo, b1.LinVelo)
-	relNormal := vector.Normalize(m.Normal)
+	relNormal := vector.Copy(m.Normal)
 
 	dp := vector.Dot(relVelo, relNormal)
+	// TODO: fps small -> dt too large -> b1 and b2 overlap too much
 	if dp > 0 {
 		return
 	}

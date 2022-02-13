@@ -1,7 +1,6 @@
 package physics2d
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/puoklam/physics2d/math/float"
@@ -36,7 +35,6 @@ func TestGeavity(t *testing.T) {
 
 		for j := 0; j < len(tt.want); j++ {
 			world.Update(1)
-			fmt.Println(body1.Center)
 			got := body1.Center.Y
 			y += tt.want[j]
 			if !float.Equal(got, y) {
@@ -45,3 +43,22 @@ func TestGeavity(t *testing.T) {
 		}
 	}
 }
+
+// func TestCollide(t *testing.T) {
+// 	world := NewWorld(1.0 / 6)
+// 	gravity := NewGravity(vector.NewVector(0, -10))
+
+// 	circle1 := shape.NewCircle(vector.NewVector(10, 500), 10, 100)
+// 	circle2 := shape.NewCircle(vector.NewVector(10, 300), 20, 200)
+
+// 	world.AddBody(circle1.Body)
+// 	world.AddBody(circle2.Body)
+// 	// world.AddBody(body2)
+// 	world.registry.Add(circle1.Body, gravity)
+
+// 	for j := 0; j < 48; j++ {
+// 		fmt.Println(circle1.Center, circle2.Center)
+// 		world.Update(1.0 / 6)
+// 		t.Errorf("OK")
+// 	}
+// }
